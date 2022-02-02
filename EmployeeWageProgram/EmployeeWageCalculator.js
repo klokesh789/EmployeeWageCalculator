@@ -35,3 +35,72 @@ while(totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS)
 //UC_6//
 let empWage = calcDailyWage(totalEmpHrs);
 console.log( "TotalDays: " + totalWorkingDays+ "Total Hrs: " + totalEmpHrs + "Emp Wage: " +empWage);
+
+//UC_7//
+
+let totalEmpWage = 0;
+function sum(dailyWage){
+ totalEmpWage += dailyWage;
+}
+empDailyWageArr.forEach(sum);
+console.log("Total Days: " +totalWorkingDays+ "Total Hrs: " + totalEmpHrs + " Emp Wage: " +totalEmpWage);
+
+function totalWages(totalWage,dailyWage){
+  return totalWage+dailyWage;
+}
+
+console.log("Emp wage using reduced method : "+empDailyWageArr.reduce(totalWages,0));
+
+//show day along with daily wage
+
+let dailyCntr = 0;
+function mapDayWithWage(dailyWage){
+  dailyCntr++;
+  return dailyCntr + " = "+dailyWage; 
+}
+
+let mapDayWithWageArr = empDailyWageArr.map(mapDayWithWage);
+console.log("Daily wage map");
+console.log(mapDayWithWageArr);
+
+// show days when employee worked full time
+function fulltimeWage(dailyWage){
+   return dailyWage.includes("160");
+}
+let fullDayWageArr = mapDayWithWageArr.filter(fulltimeWage);
+console.log("Daily wage filter when employee worked full time :");
+console.log(fullDayWageArr);
+
+// find first day occurence when worked full time
+
+function findFulltimeWage(dailyWage){
+return dailyWage.includes("160");
+}
+ console.log(" First full time wage occurence : "+mapDayWithWageArr.find(findFulltimeWage));
+
+ 
+ // check if every element of full time wage array includes fulltime wage("160")
+
+function isAllFulltimeWage(dailyWage){
+  return dailyWage.includes("160");
+}
+console.log(" check all elements have full time wage: "+fullDayWageArr.every(isAllFulltimeWage));
+
+// check if there is any part time wage 
+
+function isAnyParttimeWage(dailyWage)
+{
+  return dailyWage.includes("80");
+}
+console.log("Check if any PartTime wage : "+mapDayWithWageArr.some(isAnyParttimeWage));
+
+
+// find the number of days the employee worked
+
+function totalDaysWorked(numOfDays,dailyWage)
+{
+   if(dailyWage >0) return numOfDays+1;
+   return numOfDays;
+}
+
+console.log("Number of days emp worked : " + empDailyWageArr.reduce(totalDaysWorked,0));
